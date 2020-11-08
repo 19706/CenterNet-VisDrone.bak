@@ -2,10 +2,11 @@ import os
 from PIL import Image
 
 # 把下面的路径改成你自己的路径即可
-root_dir = "../../data/VisDrone2020-DET/VisDrone2019-DET-val/"
+root_dir = "/home/prototype/Downloads/CenterNet-master/data/VisDrone2020-DET/VisDrone2019-DET-train/"
 annotations_dir = root_dir + "annotations/"
 image_dir = root_dir + "images/"
-xml_dir = root_dir + "annotations_xml/"
+
+xml_dir = root_dir + "annotations_xml2/"
 # 下面的类别也换成你自己数据类别，也可适用于其他的数据集转换
 # 10 classes
 class_name = ['ignored regions', 'pedestrian', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle',

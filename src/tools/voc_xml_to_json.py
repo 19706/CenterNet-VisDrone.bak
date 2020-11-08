@@ -279,3 +279,5 @@ xmls = [os.path.join(dir, x) for x in os.listdir(dir)]
 
 p = PascalVOC2coco(xml=xmls)
 p.save_json()
+
+# the script is invalid, used by wliu in 2020/10/30

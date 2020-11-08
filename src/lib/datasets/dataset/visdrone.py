@@ -11,56 +11,35 @@ import os
 import torch.utils.data as data
 
 class VISDRONE(data.Dataset): # modify the class name ---> VISDRONE
-  num_classes = 10 # modify the class number ---> 10
-
+  num_classes = 12 # modify the class number ---> 12
   default_resolution = [512, 512] # or [300, 300]
-
-  mean = np.array([0.37294899, 0.37837514, 0.36463863],
+  mean = np.array([0.37603876, 0.38420406, 0.37019933],
                    dtype=np.float32).reshape(1, 1, 3)
-  std  = np.array([0.19171683, 0.18299586, 0.19437608],
+  std  = np.array([0.19404391, 0.18513784, 0.19540471],
                    dtype=np.float32).reshape(1, 1, 3)
 
   def __init__(self, opt, split):
     super(VISDRONE, self).__init__()
-    self.data_dir = os.path.join(opt.data_dir, 'visdrone')
-    self.img_dir = os.path.join(self.data_dir, 'images')
-    if split == 'test':
-      self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'image_info_test-dev2017.json').format(split)
+    # self.data_dir = os.path.join(opt.data_dir, 'visdrone')
+    self.data_dir = '/home/prototype/Downloads/CenterNet-master/data/visdrone'
+    self.img_dir = os.path.join(self.data_dir, split)
+    # self.img_dir = '/home/prototype/Downloads/CenterNet-master/data/visdrone/images-train'
+    
+    if split == 'val':
+      self.annot_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone/annotations/val.json'
     else:
       if opt.task == 'exdet':
-        self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'instances_extreme_{}2017.json').format(split)
+        self.annot_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone/annotations/train.json'
       else:
-        self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'instances_{}2017.json').format(split)
+        self.annot_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone/annotations/train.json'
+
     self.max_objs = 128
     self.class_name = [
-      '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
-      'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
-      'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
-      'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
-      'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
-      'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove',
-      'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass',
-      'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich',
-      'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake',
-      'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv',
-      'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
-      'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
-      'scissors', 'teddy bear', 'hair drier', 'toothbrush']
-    self._valid_ids = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 
-      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 
-      24, 25, 27, 28, 31, 32, 33, 34, 35, 36, 
-      37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 
-      48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 
-      58, 59, 60, 61, 62, 63, 64, 65, 67, 70, 
-      72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
-      82, 84, 85, 86, 87, 88, 89, 90]
+      '__background__', 
+      'ignore', 'pedestrian', 'people', 'bicycle', 'car', 
+      'van', 'truck', 'tricycle', 'awning-tricycle', 'bus',
+      'motor', 'others']
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -129,3 +108,7 @@ class VISDRONE(data.Dataset): # modify the class name ---> VISDRONE
     coco_eval.evaluate()
     coco_eval.accumulate()
     coco_eval.summarize()
+
+if __name__ == "__main__":
+  split = 'val'
+  self.img_dir = os.path.join(self.data_dir, '/{}'.format(split))

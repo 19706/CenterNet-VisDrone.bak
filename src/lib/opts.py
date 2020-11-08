@@ -12,8 +12,8 @@ class opts(object):
     # basic experiment setting
     self.parser.add_argument('task', default='ctdet',
                              help='ctdet | ddd | multi_pose | exdet')
-    self.parser.add_argument('--dataset', default='coco',
-                             help='coco | kitti | coco_hp | pascal')
+    self.parser.add_argument('--dataset', default='visdrone',
+                             help='coco | kitti | coco_hp | pascal | visdrone')
     self.parser.add_argument('--exp_id', default='default')
     self.parser.add_argument('--test', action='store_true')
     self.parser.add_argument('--debug', type=int, default=0,
@@ -335,10 +335,17 @@ class opts(object):
 
   def init(self, args=''):
     default_dataset_info = {
-      'ctdet': {'default_resolution': [512, 512], 'num_classes': 80, 
-                'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
-                'dataset': 'coco'},
-      # voc information...
+      # visdrone information.
+      'ctdet': {'default_resolution': [512, 512], 'num_classes': 12, 
+                'mean': [0.37603876, 0.38420406, 0.37019933], 'std': [0.19404391, 0.18513784, 0.19540471],
+                'dataset': 'visdrone'},
+      
+      # coco information.
+      # 'ctdet': {'default_resolution': [512, 512], 'num_classes': 80, 
+      #           'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
+      #           'dataset': 'coco'},
+
+      # voc information.
       # 'ctdet': {'default_resolution': [512, 512], 'num_classes': 20, 
       #           'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225],
       #           'dataset': 'pascal'},

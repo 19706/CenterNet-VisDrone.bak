@@ -37,9 +37,9 @@ def select(json_path, outpath, image_path):
 
 if __name__ == "__main__":
     # imageidFile = '/home/jjliao/Visdrone_coco/val_name.txt'
-    json_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone2/a_new/train.json'
-    image_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone/images/'
-    outpath = '/home/prototype/Downloads/CenterNet-master/data/visdrone/json_output/'
+    json_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone2/annotations_json/train.json'
+    image_path = '/home/prototype/Downloads/CenterNet-master/data/visdrone2/images-train/'
+    outpath = '/home/prototype/Downloads/CenterNet-master/data/visdrone2/json_drawbox/'
 
     os.makedirs(outpath, exist_ok=True)
     select(json_path, outpath, image_path)
