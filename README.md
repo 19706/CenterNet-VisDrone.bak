@@ -1,3 +1,22 @@
+# CenterNet for Visdrone
+This project is trained on CenterNet for Visdrone dataset.
+
+> ## updates
+- (2020.10.23) train CenterNet on Visdrone dataset.
+- (2020.12.19) insert Flask framework for developing the model in a brower.
+
+> ### Some test about Flask
+
+you can run the command to test the flask did work.
+
+```bash
+python app.py ctdet --demo ../data/visdrone/val/0000001_02999_d_0000005.jpg --load_model ../exp/ctdet/coco_dla/model_best.pth
+```
+
+and then open a brower entry `127.0.0.1:5000`, because we listen on the port 5000 by default.
+
+then `upload` a visdrone view image and bush the button and you will get a image result for a while(it depends on your server machine performance)
+
 # Objects as Points
 Object detection, 3D detection, and pose estimation using center point detection:
 ![](readme/fig2.png)
