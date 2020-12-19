@@ -218,10 +218,13 @@ class Debugger(object):
   def show_all_imgs(self, pause=False, time=0):
     if not self.ipynb:
       for i, v in self.imgs.items():
-        cv2.imshow('{}'.format(i), v)
-      if cv2.waitKey(0 if pause else 1) == 27:
-        import sys
-        sys.exit(0)
+        # 取消注释,来显示图片(由于测试flask,所以先暂时注释)
+        # cv2.imshow('{}'.format(i), v)
+        #for flask output
+        cv2.imwrite('/home/prototype/Downloads/CenterNet-master/static/flask_output.jpg', v)
+      # if cv2.waitKey(0 if pause else 1) == 27:
+      #   import sys
+      #   sys.exit(0)
     else:
       self.ax = None
       nImgs = len(self.imgs)
