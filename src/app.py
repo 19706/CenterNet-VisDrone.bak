@@ -12,6 +12,8 @@ import cv2
 from opts import opts
 from detectors.detector_factory import detector_factory
 
+
+
 app = Flask(__name__)
 
 
@@ -22,23 +24,31 @@ def upload_file():
     Detector = detector_factory[opt.task]
     detector = Detector(opt)
 
+
     if request.method == "GET":
         return render_template("upload.html")
     if request.method == "POST":
         # アプロードされたファイルをいったん保存する
         f = request.files["file"]
         filepath = "./static/flask_input.jpg"
-        # f.save(filepath)
+        f.save(filepath)
+        opt.demo = filepath
         # # 画像ファイルを読み込む
-        file = [filepath]
+        image = [opt.demo]
         # image = Image.open(file[0])
 
         # 予測を実施
-        detector.run(file[0])
+        detector.run(image[0])
 
         return render_template("upload_done.html", path="./static/flask_output.jpg")
 
 
 if __name__ == "__main__":
     opt = opts().init()
+
+    if os.path.exists("./static/flask_output.jpg"):
+        os.remove("./static/flask_output.jpg")
+    if os.path.exists("./static/flask_input.jpg"):
+        os.remove("./static/flask_input.jpg")
+
     app.run(debug=True)
